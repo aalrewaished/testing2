@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="mapbox/mapbox-gl.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+            <nav id="menu"></nav>
+              <div id="distance" class="distance-container"></div>
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="./mapbox/mapbox-gl.js"></script>
+        <script src="data/districts_1.js"></script>
+        <script src="data/KingdomOfSaudiArabiaLines_2.js"></script>
+        <script src="data/PacelStationsMastersheetAlhanouf_3.js"></script>
+<script src="./mapbox/style.js"></script>
+<script src="./js/Autolinker.min.js"></script>
+<script>
+var map = new mapboxgl.Map({
+ container: 'map',
+ style: styleJSON,
+ center: [48.802620260771384,24.79676825614145],
+ zoom: 5,
+ bearing: 360.0,
+ attributionControl: false
+});
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+map.addControl(new mapboxgl.AttributionControl({
+    customAttribution: '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://github.com/mapbox/mapbox-gl-js" target="_blank">Mapbox GL JS</a> &middot; <a href="https://qgis.org" target="_blank">QGIS</a>',
+    compact: false
+}));
+var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+
+map.on('click', 'lyr_districts_1_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['district_id'] !== null ? autolinker.link(e.features[0].properties['district_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['city_id'] !== null ? autolinker.link(e.features[0].properties['city_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['region_id'] !== null ? autolinker.link(e.features[0].properties['region_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['name_ar'] !== null ? autolinker.link(e.features[0].properties['name_ar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['name_en'] !== null ? autolinker.link(e.features[0].properties['name_en'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr_districts_1_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr_districts_1_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr_KingdomOfSaudiArabiaLines_2_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['ID_0'] !== null ? autolinker.link(e.features[0].properties['ID_0'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ISO</strong><br />' + (e.features[0].properties['ISO'] !== null ? autolinker.link(e.features[0].properties['ISO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['NAME_0'] !== null ? autolinker.link(e.features[0].properties['NAME_0'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['ID_1'] !== null ? autolinker.link(e.features[0].properties['ID_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['NAME_1'] !== null ? autolinker.link(e.features[0].properties['NAME_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['HASC_1'] !== null ? autolinker.link(e.features[0].properties['HASC_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CCN_1'] !== null ? autolinker.link(e.features[0].properties['CCN_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['CCA_1'] !== null ? autolinker.link(e.features[0].properties['CCA_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['TYPE_1'] !== null ? autolinker.link(e.features[0].properties['TYPE_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['ENGTYPE_1'] !== null ? autolinker.link(e.features[0].properties['ENGTYPE_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['NL_NAME_1'] !== null ? autolinker.link(e.features[0].properties['NL_NAME_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (e.features[0].properties['VARNAME_1'] !== null ? autolinker.link(e.features[0].properties['VARNAME_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr_KingdomOfSaudiArabiaLines_2_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr_KingdomOfSaudiArabiaLines_2_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+map.on('click', 'lyr_PacelStationsMastersheetAlhanouf_3_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <th scope="row">Region</th>\
+                        <td>' + (e.features[0].properties['Region'] !== null ? autolinker.link(e.features[0].properties['Region'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">City</th>\
+                        <td>' + (e.features[0].properties['City'] !== null ? autolinker.link(e.features[0].properties['City'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SID</th>\
+                        <td>' + (e.features[0].properties['SID'] !== null ? autolinker.link(e.features[0].properties['SID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Anydesk ID</th>\
+                        <td>' + (e.features[0].properties['Anydesk ID'] !== null ? autolinker.link(e.features[0].properties['Anydesk ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">English Name</th>\
+                        <td>' + (e.features[0].properties['English Name'] !== null ? autolinker.link(e.features[0].properties['English Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Arabic Name</th>\
+                        <td>' + (e.features[0].properties['Arabic Name'] !== null ? autolinker.link(e.features[0].properties['Arabic Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Long</th>\
+                        <td>' + (e.features[0].properties['Long'] !== null ? autolinker.link(e.features[0].properties['Long'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lat</th>\
+                        <td>' + (e.features[0].properties['Lat'] !== null ? autolinker.link(e.features[0].properties['Lat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Google Maps Link</th>\
+                        <td>' + (e.features[0].properties['Google Maps Link'] !== null ? autolinker.link(e.features[0].properties['Google Maps Link'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Glass Room</th>\
+                        <td>' + (e.features[0].properties['Glass Room'] !== null ? autolinker.link(e.features[0].properties['Glass Room'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location Owner</th>\
+                        <td>' + (e.features[0].properties['Location Owner'] !== null ? autolinker.link(e.features[0].properties['Location Owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SIM SN</th>\
+                        <td>' + (e.features[0].properties['SIM SN'] !== null ? autolinker.link(e.features[0].properties['SIM SN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Retail - LM</th>\
+                        <td>' + (e.features[0].properties['Retail - LM'] !== null ? autolinker.link(e.features[0].properties['Retail - LM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Buliding NO.</th>\
+                        <td>' + (e.features[0].properties['Buliding NO.'] !== null ? autolinker.link(e.features[0].properties['Buliding NO.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Street Name</th>\
+                        <td>' + (e.features[0].properties['Street Name'] !== null ? autolinker.link(e.features[0].properties['Street Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Street Name Arabic</th>\
+                        <td>' + (e.features[0].properties['Street Name Arabic'] !== null ? autolinker.link(e.features[0].properties['Street Name Arabic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Zip code</th>\
+                        <td>' + (e.features[0].properties['Zip code'] !== null ? autolinker.link(e.features[0].properties['Zip code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Additional No.</th>\
+                        <td>' + (e.features[0].properties['Additional No.'] !== null ? autolinker.link(e.features[0].properties['Additional No.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Short Address</th>\
+                        <td>' + (e.features[0].properties['Short Address'] !== null ? autolinker.link(e.features[0].properties['Short Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Address</th>\
+                        <td>' + (e.features[0].properties['Address'] !== null ? autolinker.link(e.features[0].properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr_PacelStationsMastersheetAlhanouf_3_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr_PacelStationsMastersheetAlhanouf_3_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+    var toggleableLayerIds = ['lyr_PacelStationsMastersheetAlhanouf_3_0', 'Pacel Stations Mastersheet - Alhanouf','lyr_KingdomOfSaudiArabiaLines_2_0', 'Kingdom Of Saudi Arabia Lines','lyr_districts_1_0', 'districts','lyr_GoogleMaps_0_0', 'Google Maps'];
+
+    for (var i = 0; i < toggleableLayerIds.length; i=i+2) {
+        var id = toggleableLayerIds[i];
+        var layerName = toggleableLayerIds[i+1]
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.layer = id;
+        link.textContent = layerName;
+
+        link.onclick = function (e) {
+            var clickedLayer = this.layer;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+            if (typeof visibility === 'undefined' || visibility == 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }</script>
+        <script>
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            })
+        );
+        </script>
+    </body>
+</html>
